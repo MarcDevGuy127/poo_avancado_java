@@ -67,17 +67,19 @@ public class Aluno {
 
 	static void listar(ArrayList<Aluno> alunos) {
 		
+		System.out.println("%n===== ALUNOS =====%n");
+		
 		for (Aluno aluno : alunos) {
 			// String join
 			System.out.printf(
-					"% 20s | %4.1f | % 12s%n",
+					"%-20s | %4.1f | % 12s%n",
 					aluno.getNome(),
 					aluno.getMedia(), 
 					aluno.getSituacao());
 		}
 	}
 	
-	static void emitirRelatorio(ArrayList<Aluno> alunos) {
+	static String emitirRelatorio(ArrayList<Aluno> alunos) {
 		StringBuilder relatorio = new StringBuilder();
 		
 		
@@ -85,13 +87,15 @@ public class Aluno {
 		relatorio.append("-------------- \n");
 		
 		for (Aluno aluno : alunos) {
-			System.out.printf(
+			relatorio.append(String.format(
 					"% 20s | %4.1f | % 12s%n",
 					aluno.getNome(),
 					aluno.getMedia(), 
-					aluno.getSituacao());
+					aluno.getSituacao()
+			));
 		}
-		System.out.println(relatorio.toString());
+
+		return relatorio.toString();
 	}
 	
 	static String normalizarNome(String nome) {
@@ -106,18 +110,25 @@ public class Aluno {
 				+ nome.substring(1);
 	}
 	
-	static Aluno buscarPorNome(ArrayList<Aluno> alunos, String nome) {
+	static Aluno buscarPorNome(Scanner scanner, ArrayList<Aluno> alunos, String nome) {
 		
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		
 		System.out.println("\n");
 		System.out.println("Nome ou parte do nome: ");
 		String busca = scanner.nextLine();
+				
+		busca = normalizarNome(busca);
 		
-		Aluno encontrado = buscarPorNome(alunos, nome);
-		
-		if (encontrado == null) {
-			System.out.println("Aluno nao encontrado");
+		if (busca.equalsIgnoreCase(nome) && busca.contains(nome)) {
+			Aluno encontrado = buscarPorNome(scanner, alunos, busca);
+			
+			System.out.printf("%s | %.1f | %s%n",
+					encontrado.getNome(),
+					encontrado.getMedia(),
+					encontrado.getSituacao());
+		} else {
+			System.out.println("Aluno nao encontrado");			
 		}
 		
 		for (Aluno aluno : alunos) {
