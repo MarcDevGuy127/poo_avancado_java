@@ -1,6 +1,7 @@
 package poo_avancado;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aluno {
@@ -70,9 +71,9 @@ public class Aluno {
 		System.out.println("%n===== ALUNOS =====%n");
 		
 		for (Aluno aluno : alunos) {
-			// String join
+			
 			System.out.printf(
-					"%-20s | %4.1f | % 12s%n",
+					"%-20s | %4.1f | %12s %n",
 					aluno.getNome(),
 					aluno.getMedia(), 
 					aluno.getSituacao());
@@ -110,26 +111,7 @@ public class Aluno {
 				+ nome.substring(1);
 	}
 	
-	static Aluno buscarPorNome(Scanner scanner, ArrayList<Aluno> alunos, String nome) {
-		
-		//Scanner scanner = new Scanner(System.in);
-		
-		System.out.println("\n");
-		System.out.println("Nome ou parte do nome: ");
-		String busca = scanner.nextLine();
-				
-		busca = normalizarNome(busca);
-		
-		if (busca.equalsIgnoreCase(nome) && busca.contains(nome)) {
-			Aluno encontrado = buscarPorNome(scanner, alunos, busca);
-			
-			System.out.printf("%s | %.1f | %s%n",
-					encontrado.getNome(),
-					encontrado.getMedia(),
-					encontrado.getSituacao());
-		} else {
-			System.out.println("Aluno nao encontrado");			
-		}
+	static Aluno buscarPorNome(ArrayList<Aluno> alunos, String nome) {
 		
 		for (Aluno aluno : alunos) {
 			if (aluno.getNome().toLowerCase()
@@ -138,7 +120,6 @@ public class Aluno {
 			}
 		}
 		
-		scanner.close();
 		return null;
 	}
 }

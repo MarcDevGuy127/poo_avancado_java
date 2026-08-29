@@ -25,8 +25,8 @@ public class Main {
 			System.out.println("SISTEMA DE CADASTRO");
 			System.out.println("1 - Cadastrar novo aluno");
 			System.out.println("2 - Listar alunos cadastrados");
-			// System.out.println("3 - Emitir relatorio");
 			System.out.println("3 - Buscar por nome");
+			System.out.println("4 - Emitir relatorio");
 			System.out.println("0 - Sair do sistema");
 			opcao = scanner.nextInt();
 			
@@ -39,10 +39,24 @@ public class Main {
 				break;
 			case 2:
 				Aluno.listar(alunos);
-			/* case 3:
-				Aluno.emitirRelatorio(alunos); */
 			case 3:
-				Aluno.buscarPorNome(scanner, alunos, null);
+				System.out.println("\n");
+				System.out.println("Nome ou parte do nome: ");
+				String busca = scanner.next();
+				
+				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);
+				
+				if (encontrado == null) {
+					System.out.println("Aluno nao encontrado");	
+				} else {
+					System.out.printf("%s | %.1f | %s%n",
+							encontrado.getNome(),
+							encontrado.getMedia(),
+							encontrado.getSituacao());			
+				}
+				break;
+			case 4:
+				Aluno.emitirRelatorio(alunos);				
 			default:
 				System.out.println("Opcao invalida \n");
 			}
