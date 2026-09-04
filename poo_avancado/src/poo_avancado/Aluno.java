@@ -90,14 +90,14 @@ public class Aluno {
 		}
 	}
 	
-	static String emitirRelatorio(ArrayList<Aluno> alunos) {
+	static String emitirRelatorio(Aluno[] turma) {
 		StringBuilder relatorio = new StringBuilder();
 		
 		
 		relatorio.append("RELATORIO \n");
 		relatorio.append("-------------- \n");
 		
-		for (Aluno aluno : alunos) {
+		for (Aluno aluno : turma) {
 			relatorio.append(String.format(
 					"%-20s | %4.1f | %12s%n",
 					aluno.getNome(),
