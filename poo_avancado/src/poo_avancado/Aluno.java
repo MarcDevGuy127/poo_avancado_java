@@ -89,7 +89,7 @@ public class Aluno {
 		
 		for (Aluno aluno : alunos) {
 			relatorio.append(String.format(
-					"% 20s | %4.1f | % 12s%n",
+					"%20s | %4.1f | %12s%n",
 					aluno.getNome(),
 					aluno.getMedia(), 
 					aluno.getSituacao()
