@@ -11,13 +11,13 @@ public class Main {
 		
 		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 		
-		/* teste de emissao de relatorio
-		 * alunos.add(new Aluno("Marcelo", 9, 9, 0));
-		 * alunos.add(new Aluno("Carlos", 8, 9, 0));
-		 * StringBuilder relatorio = new StringBuilder(); */
+		Aluno[] turma = new Aluno[3];
+
+		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
+		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
+		turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
 		
-		
-		Aluno.emitirRelatorio(alunos);
+		//Aluno.emitirRelatorio(alunos);
 		
 		int opcao = -1;
 		

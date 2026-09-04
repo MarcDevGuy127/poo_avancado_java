@@ -6,14 +6,11 @@ import java.util.Scanner;
 
 public class Aluno {
 	private String nome;
-	private double nota1, nota2;
-	private double media;
-
-	public Aluno(String nome, double nota1, double nota2, double media) {
+	private double[] notas;
+	
+	public Aluno(String nome, double[] notas) {
 		this.nome = nome;
-		this.nota1 = nota1;
-		this.nota2 = nota2;
-		this.media = media;
+		this.notas = notas;
 	}
 
 	public String getNome() {
@@ -21,17 +18,27 @@ public class Aluno {
 	}
 
 	public double getMedia() {
-		media = (nota1 + nota2) / 2.0;
-		return media;
+		if (notas == null || notas.length == 0) {
+			return 0;
+		}
+		
+		double soma = 0;
+		for (double nota : notas) {
+			soma += nota;
+		}
+		
+		return soma / notas.length;
 	}
 
 	public String getSituacao() {
-		if (media >= 7)
-			return "Aprovado";
-		else if (media >= 5)
-			return "Recuperação";
-		else
-			return "Reprovado";
+		double media = getMedia();
+		if (media >= 7)	return "Aprovado";
+		if (media >= 5) return "Recuperação";
+		return "Reprovado";
+	}
+	
+	static double lerNotas(Scanner scanner, String string) {
+		return scanner.nextDouble();
 	}
 
 	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos) {
@@ -44,17 +51,20 @@ public class Aluno {
 		
 		nome = normalizarNome(nome);
 
-		System.out.println("Nota 1: ");
-		double nota1 = scanner.nextDouble();
+		double[] notas = new double[4];
+		
+		for (int i = 0; i < notas.length; i++) {
+			notas[i] = lerNotas(scanner,"Nota " + (i + 1) + ": %d");
+		}
 
-		System.out.println("Nota 2: ");
-		double nota2 = scanner.nextDouble();
+		scanner.nextLine();
+		
+		//Aluno[] turma = new Aluno[3];
+		
+		Aluno aluno = new Aluno(nome, notas);
+		//Aluno[] turma = new Aluno[3];
 
-		double media = 0;
-
-		Aluno aluno = new Aluno(nome, nota1, nota2, media);
-
-		media = aluno.getMedia();
+		aluno.getMedia();
 
 		alunos.add(aluno);
 
@@ -66,11 +76,11 @@ public class Aluno {
 		System.out.println();
 	}
 
-	static void listar(ArrayList<Aluno> alunos) {
+	static void listar(Aluno[] turma) {
 		
 		System.out.println("==== ALUNOS ====");
 		
-		for (Aluno aluno : alunos) {
+		for (Aluno aluno : turma) {
 			
 			System.out.printf(
 					"%n %-20s | %4.1f | %12s %n",
