@@ -39,9 +39,9 @@ public class Main {
 				break;
 			case 2:
 				Aluno.listar(alunos);
+				break;
 			case 3:
-				System.out.println("\n");
-				System.out.println("Nome ou parte do nome: ");
+				System.out.println("%nNome ou parte do nome:%n");
 				String busca = scanner.next();
 				
 				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);
@@ -56,9 +56,10 @@ public class Main {
 				}
 				break;
 			case 4:
-				Aluno.emitirRelatorio(alunos);				
+				System.out.println(Aluno.emitirRelatorio(alunos));
+				break;
 			default:
-				System.out.println("Opcao invalida \n");
+				System.out.println("Opcao invalida%n");
 			}
 		} while (opcao != 0);
 		scanner.close();
