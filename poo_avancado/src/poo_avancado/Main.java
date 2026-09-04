@@ -41,7 +41,7 @@ public class Main {
 				Aluno.listar(alunos);
 				break;
 			case 3:
-				System.out.println("%nNome ou parte do nome:%n");
+				System.out.println("Nome ou parte do nome:");
 				String busca = scanner.next();
 				
 				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);

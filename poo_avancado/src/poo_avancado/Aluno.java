@@ -59,21 +59,21 @@ public class Aluno {
 		alunos.add(aluno);
 
 		System.out.println();
-		System.out.println("Aluno foi cadastrado! \n");
-		System.out.printf("Nome: %s \n", aluno.getNome());
-		System.out.printf("Média: %.1f \n", aluno.getMedia());
-		System.out.printf("Situacao: %s \n", aluno.getSituacao());
+		System.out.println("Aluno foi cadastrado! %n");
+		System.out.printf("Nome: %s %n", aluno.getNome());
+		System.out.printf("Média: %.1f %n", aluno.getMedia());
+		System.out.printf("Situacao: %s %n", aluno.getSituacao());
 		System.out.println();
 	}
 
 	static void listar(ArrayList<Aluno> alunos) {
 		
-		System.out.println("%n===== ALUNOS =====%n");
+		System.out.println("==== ALUNOS ====");
 		
 		for (Aluno aluno : alunos) {
 			
 			System.out.printf(
-					"%-20s | %4.1f | %12s %n",
+					"%n %-20s | %4.1f | %12s %n",
 					aluno.getNome(),
 					aluno.getMedia(), 
 					aluno.getSituacao());
