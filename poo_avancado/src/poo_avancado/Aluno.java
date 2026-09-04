@@ -77,16 +77,17 @@ public class Aluno {
 	}
 
 	static void listar(Aluno[] turma) {
-		
 		System.out.println("==== ALUNOS ====");
 		
 		for (Aluno aluno : turma) {
 			
-			System.out.printf(
-					"%n %-20s | %4.1f | %12s %n",
-					aluno.getNome(),
-					aluno.getMedia(), 
-					aluno.getSituacao());
+			if (aluno != null) {
+				System.out.printf(
+						"%n %-20s | %4.1f | %12s %n",
+						aluno.getNome(),
+						aluno.getMedia(), 
+						aluno.getSituacao());
+				}
 		}
 	}
 	
