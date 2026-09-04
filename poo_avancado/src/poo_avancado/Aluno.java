@@ -122,11 +122,11 @@ public class Aluno {
 				+ nome.substring(1);
 	}
 	
-	static Aluno buscarPorNome(ArrayList<Aluno> alunos, String nome) {
+	static Aluno buscarPorNome(Aluno[] turma, String nome) {
 		
-		for (Aluno aluno : alunos) {
-			if (aluno.getNome().toLowerCase()
-					.contains(nome.trim().toLowerCase())) {
+		for (Aluno aluno : turma) {
+			if (aluno != null &&
+				aluno.getNome().equalsIgnoreCase(nome)) {
 				return aluno;
 			}
 		}
