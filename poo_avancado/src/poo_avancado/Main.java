@@ -1,5 +1,6 @@
 package poo_avancado;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,13 +9,13 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		
-		Aluno[] turma = new Aluno[4];
+		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 		
-		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
-		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
-		turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
+		// Aluno[] turma = new Aluno[4];
 		
-		//Aluno.emitirRelatorio(alunos);
+		alunos.add(new Aluno("João", new double[]{8.0, 7.5, 9.0, 7.0}));
+		alunos.add(new Aluno("Marcelo", new double[]{9, 9, 0, 10}));
+		alunos.add(new Aluno("Carlos", new double[]{8, 9, 0, 9}));
 		
 		int opcao = -1;
 		
@@ -24,6 +25,7 @@ public class Main {
 			System.out.println("2 - Listar alunos cadastrados");
 			System.out.println("3 - Buscar por nome");
 			System.out.println("4 - Emitir relatorio");
+			System.out.println("5 - Buscar maior media da turma");
 			System.out.println("0 - Sair do sistema");
 			opcao = scanner.nextInt();
 			
@@ -32,16 +34,16 @@ public class Main {
 				System.out.println("Encerrando programa...");
 				break;
 			case 1:
-				Aluno.cadastrar(scanner, turma);
+				Aluno.cadastrar(scanner, alunos);
 				break;
 			case 2:
-				Aluno.listar(turma);
+				Aluno.listar(alunos);
 				break;
 			case 3:
 				System.out.println("Nome ou parte do nome:");
 				String busca = scanner.next();
 				
-				Aluno encontrado = Aluno.buscarPorNome(turma, busca);
+				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);
 				
 				if (encontrado == null) {
 					System.out.println("Aluno nao encontrado");	
@@ -53,8 +55,11 @@ public class Main {
 				}
 				break;
 			case 4:
-				System.out.println(Aluno.emitirRelatorio(turma));
+				System.out.println(Aluno.emitirRelatorio(alunos));
 				break;
+			/*case 5:
+				Aluno.buscarMaiorMedia(alunos);
+				break;*/
 			default:
 				System.out.println("Opcao invalida %n");
 			}
