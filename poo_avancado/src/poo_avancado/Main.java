@@ -1,6 +1,5 @@
 package poo_avancado;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -9,10 +8,8 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		
-		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-		
 		Aluno[] turma = new Aluno[3];
-
+		
 		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
 		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
 		turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
@@ -35,16 +32,16 @@ public class Main {
 				System.out.println("Encerrando programa...");
 				break;
 			case 1:
-				Aluno.cadastrar(scanner, alunos);
+				Aluno.cadastrar(scanner, turma);
 				break;
 			case 2:
-				Aluno.listar(alunos);
+				Aluno.listar(turma);
 				break;
 			case 3:
 				System.out.println("Nome ou parte do nome:");
 				String busca = scanner.next();
 				
-				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);
+				Aluno encontrado = Aluno.buscarPorNome(turma, busca);
 				
 				if (encontrado == null) {
 					System.out.println("Aluno nao encontrado");	
@@ -56,10 +53,10 @@ public class Main {
 				}
 				break;
 			case 4:
-				System.out.println(Aluno.emitirRelatorio(alunos));
+				System.out.println(Aluno.emitirRelatorio(turma));
 				break;
 			default:
-				System.out.println("Opcao invalida%n");
+				System.out.println("Opcao invalida %n");
 			}
 		} while (opcao != 0);
 		scanner.close();

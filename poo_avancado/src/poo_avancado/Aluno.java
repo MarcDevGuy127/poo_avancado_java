@@ -1,7 +1,5 @@
 package poo_avancado;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aluno {
@@ -37,43 +35,46 @@ public class Aluno {
 		return "Reprovado";
 	}
 	
-	static double lerNotas(Scanner scanner, String string) {
+	static double lerNotas(String string, Scanner scanner) {
+		System.out.println(string);
 		return scanner.nextDouble();
 	}
 
-	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos) {
-		System.out.println();
-		System.out.println("SISTEMA DE CADASTRO");
+	static void cadastrar(Scanner scanner, Aluno[] turma) {
+				System.out.println();
+				System.out.println("SISTEMA DE CADASTRO");
 
-		scanner.nextLine();
-		System.out.println("Nome: ");
-		String nome = scanner.nextLine();
-		
-		nome = normalizarNome(nome);
+				scanner.nextLine();
+				System.out.println("Nome: ");
+				String nome = scanner.nextLine();
+				
+				nome = normalizarNome(nome);
 
-		double[] notas = new double[4];
-		
-		for (int i = 0; i < notas.length; i++) {
-			notas[i] = lerNotas(scanner,"Nota " + (i + 1) + ": %d");
-		}
+				//double[] notas = new double[4]; // 1 semestre = 4 bimestres
+				double[] notas = new double[3];
+				
+				for (int i = 0; i < notas.length; i++) {
+					notas[i] = lerNotas("Nota " + (i + 1) + ": %d", scanner);
+				}
 
-		scanner.nextLine();
-		
-		//Aluno[] turma = new Aluno[3];
-		
-		Aluno aluno = new Aluno(nome, notas);
-		//Aluno[] turma = new Aluno[3];
+				scanner.nextLine();
 
-		aluno.getMedia();
-
-		alunos.add(aluno);
-
-		System.out.println();
-		System.out.println("Aluno foi cadastrado! %n");
-		System.out.printf("Nome: %s %n", aluno.getNome());
-		System.out.printf("Média: %.1f %n", aluno.getMedia());
-		System.out.printf("Situacao: %s %n", aluno.getSituacao());
-		System.out.println();
+				for (int i = 0; i < turma.length; i++) {
+			        if (turma[i] == null) {
+			            turma[i] = new Aluno(nome, notas);
+			            System.out.println("Aluno cadastrado!");
+			            System.out.printf("Nome: %s %n", turma[i].getNome());
+						System.out.printf("Média: %.1f %n", turma[i].getMedia());
+						System.out.printf("Situacao: %s %n", turma[i].getSituacao());
+			            return;
+			        } else {
+			        	System.out.println("Turma cheia!");
+			        }
+			    }
+				
+				System.out.println();
+				System.out.println("Aluno foi cadastrado! %n");
+				System.out.println();
 	}
 
 	static void listar(Aluno[] turma) {
