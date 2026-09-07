@@ -36,7 +36,7 @@ public class Aluno {
 	}
 	
 	static double lerNotas(String string, Scanner scanner) {
-		System.out.println(string);
+		System.out.print(string);
 		return scanner.nextDouble();
 	}
 
@@ -53,9 +53,16 @@ public class Aluno {
 				//double[] notas = new double[4]; // 1 semestre = 4 bimestres
 				double[] notas = new double[3];
 				
-				for (int i = 0; i < notas.length; i++) {
-					notas[i] = lerNotas("Nota " + (i + 1) + ": %d", scanner);
-				}
+					for (int i = 0; i < notas.length; i++) {
+				
+						if (notas[i] > -1 && notas[i] <= 10) {
+							notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
+						} else {
+							System.out.println("Notas devem ser entre 0 e 10!");
+							scanner.next();
+							return;
+						}
+					}
 
 				scanner.nextLine();
 
@@ -67,7 +74,9 @@ public class Aluno {
 						System.out.printf("Média: %.1f %n", turma[i].getMedia());
 						System.out.printf("Situacao: %s %n", turma[i].getSituacao());
 			            return;
-			        } else {
+			        }
+			        
+			        if(i > turma.length) {
 			        	System.out.println("Turma cheia!");
 			        }
 			    }
@@ -84,7 +93,7 @@ public class Aluno {
 			
 			if (aluno != null) {
 				System.out.printf(
-						"%n %-20s | %4.1f | %12s %n",
+						"%-20s | %4.1f | %12s %n",
 						aluno.getNome(),
 						aluno.getMedia(), 
 						aluno.getSituacao());
@@ -101,7 +110,7 @@ public class Aluno {
 		
 		for (Aluno aluno : turma) {
 			relatorio.append(String.format(
-					"%-20s | %4.1f | %12s%n",
+					"%-20s | %4.1f | %12s %n",
 					aluno.getNome(),
 					aluno.getMedia(), 
 					aluno.getSituacao()

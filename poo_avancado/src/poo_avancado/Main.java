@@ -8,7 +8,7 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		
-		Aluno[] turma = new Aluno[3];
+		Aluno[] turma = new Aluno[4];
 		
 		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
 		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
@@ -46,7 +46,7 @@ public class Main {
 				if (encontrado == null) {
 					System.out.println("Aluno nao encontrado");	
 				} else {
-					System.out.printf("%s | %.1f | %s%n",
+					System.out.printf("%n %s | %.1f | %s",
 							encontrado.getNome(),
 							encontrado.getMedia(),
 							encontrado.getSituacao());			
