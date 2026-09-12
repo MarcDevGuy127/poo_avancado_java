@@ -10,12 +10,20 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		
 		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+
+		String[][] lugares = new String[3][1];
 		
-		// Aluno[] turma = new Aluno[4];
+		Aluno[] turma = new Aluno[3];
 		
+		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
+		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
+		turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
+		
+		/*
 		alunos.add(new Aluno("João", new double[]{8.0, 7.5, 9.0, 7.0}));
 		alunos.add(new Aluno("Marcelo", new double[]{9, 9, 0, 10}));
 		alunos.add(new Aluno("Carlos", new double[]{8, 9, 0, 9}));
+		*/
 		
 		int opcao = -1;
 		
@@ -26,6 +34,7 @@ public class Main {
 			System.out.println("3 - Buscar por nome");
 			System.out.println("4 - Emitir relatorio");
 			System.out.println("5 - Buscar maior media da turma");
+			System.out.println("6 - Exibir ensalamento da turma");
 			System.out.println("0 - Sair do sistema");
 			opcao = scanner.nextInt();
 			
@@ -37,7 +46,7 @@ public class Main {
 				Aluno.cadastrar(scanner, alunos);
 				break;
 			case 2:
-				Aluno.listar(alunos);
+				Aluno.listar(turma);
 				break;
 			case 3:
 				System.out.println("Nome ou parte do nome:");
@@ -55,11 +64,15 @@ public class Main {
 				}
 				break;
 			case 4:
-				System.out.println(Aluno.emitirRelatorio(alunos));
+				System.out.println(Aluno.emitirRelatorio(turma));
 				break;
-			/*case 5:
-				Aluno.buscarMaiorMedia(alunos);
-				break;*/
+			case 6:
+				System.out.println(Aluno.exibirEnsalamento(turma, lugares));
+				
+				break;
+			/* case 5:
+				Aluno.analisarMedias(turma);
+				break; */
 			default:
 				System.out.println("Opcao invalida %n");
 			}

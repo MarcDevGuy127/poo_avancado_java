@@ -1,11 +1,13 @@
 package poo_avancado;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aluno {
-	private String nome;
-	private double[] notas;
+	public String nome;
+	public double[] notas;
 	
 	public Aluno(String nome, double[] notas) {
 		this.nome = nome;
@@ -22,11 +24,20 @@ public class Aluno {
 		}
 		
 		double soma = 0;
+		
 		for (double nota : notas) {
+			Arrays.toString(notas);
 			soma += nota;
 		}
 		
 		return soma / notas.length;
+	}
+	
+	@Override
+	public String toString() {
+		return 	"Nome: " + getNome()
+				+ " | Notas: " + Arrays.toString(notas) 
+				+ " | Situacao: " + getSituacao();
 	}
 
 	public String getSituacao() {
@@ -38,7 +49,14 @@ public class Aluno {
 	
 	static double lerNotas(String string, Scanner scanner) {
 		System.out.print(string);
-		return scanner.nextDouble();
+		
+		if (scanner.nextDouble() >= 0 && scanner.nextDouble() <= 10) {
+			return scanner.nextDouble();
+		} else {
+			System.out.println("Nota invalida!");
+			scanner.nextLine();
+			return 0;
+		}
 	}
 
 	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos) {
@@ -51,7 +69,7 @@ public class Aluno {
 				
 				nome = normalizarNome(nome);
 
-				double[] notas = new double[4]; // 1 semestre = 4 bimestres
+				double[] notas = new double[3]; // 1 semestre = 4 bimestres
 				
 				for (int i = 0; i < notas.length; i++) {
 					notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
@@ -72,26 +90,28 @@ public class Aluno {
 				alunos.add(aluno);
 	}
 
-	static void listar(ArrayList<Aluno> alunos) {
-			System.out.println("==== ALUNOS ====");
+	static String listar(Aluno[] turma) {
+			StringBuilder ensalamento = new StringBuilder();
+
+		
+			ensalamento.append("==== ALUNOS ====");
 			
-			for (Aluno aluno : alunos) {
-				System.out.printf(
-				"%-20s | %4.1f | %12s %n",
-				aluno.getNome(),
-				aluno.getMedia(), 
-				aluno.getSituacao());
+			for (Aluno aluno : turma) {
+				ensalamento.append(String.format(
+		    			"%s %n",aluno));
 			}
+			
+			return ensalamento.toString();
 	}
 	
-	static String emitirRelatorio(ArrayList<Aluno> alunos) {
+	static String emitirRelatorio(Aluno[] turma) {
 		StringBuilder relatorio = new StringBuilder();
 		
 		
 		relatorio.append("RELATORIO \n");
 		relatorio.append("-------------- \n");
 		
-		for (Aluno aluno : alunos) {
+		for (Aluno aluno : turma) {
 			relatorio.append(String.format(
 					"%-20s | %4.1f | %12s %n",
 					aluno.getNome(),
@@ -128,25 +148,28 @@ public class Aluno {
 	}
 	
 	
-	
-	/*static Aluno buscarMaiorMedia(ArrayList<Aluno> alunos) {
+	static String exibirEnsalamento(Aluno[] turma, String[][] lugares) {
+
+		StringBuilder ensalamento = new StringBuilder();
 		
-		StringBuilder relatorioMaiorMedia = new StringBuilder();
 		
+		ensalamento.append("ENSALAMENTO \n");
+		ensalamento.append("-------------- \n");
+
 		
-		relatorioMaiorMedia.append("RELATORIO MAIOR MEDIA \n");
-		relatorioMaiorMedia.append("-------------- \n");
-		
-		for (Aluno aluno : alunos) {
-			if (aluno.getMedia() > alunos.length) {
-				
-			}
-			relatorioMaiorMedia.append(String.format(
-					"%-20s | %4.1f | %12s %n",
-					aluno.getNome(),
-					aluno.getMedia(), 
-					aluno.getSituacao()
-			));
+		for (int i = 0; i < turma.length; i++) {
+			
+		    for (int j = 0; j < lugares[i].length; j++) {
+
+		    	lugares[i][j] = turma[i].getNome();
+		    	
+		    	ensalamento.append(String.format(
+		    			"Posicao: %d Estudante: %s %n",
+		    			i + 1,
+		    			lugares[i][j]));
+		    }
 		}
-	}*/
+		
+		return ensalamento.toString();
+	}
 }
