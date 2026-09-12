@@ -2,7 +2,6 @@ package poo_avancado;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Aluno {
@@ -48,15 +47,27 @@ public class Aluno {
 	}
 	
 	static double lerNotas(String string, Scanner scanner) {
-		System.out.print(string);
-		
-		if (scanner.nextDouble() >= 0 && scanner.nextDouble() <= 10) {
-			return scanner.nextDouble();
-		} else {
-			System.out.println("Nota invalida!");
-			scanner.nextLine();
-			return 0;
-		}
+		while (true) {
+
+            System.out.print(string);
+
+            if (scanner.hasNextDouble()) {
+
+                double nota = scanner.nextDouble();
+                scanner.nextLine();
+
+                if (nota >= 0 && nota <= 10) {
+                    return nota;
+                }
+
+                System.out.println("Digite uma nota entre 0 e 10.");
+
+            } else {
+
+                System.out.println("Digite um número válido.");
+                scanner.nextLine();
+            }
+        }
 	}
 
 	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos) {
@@ -69,13 +80,11 @@ public class Aluno {
 				
 				nome = normalizarNome(nome);
 
-				double[] notas = new double[3]; // 1 semestre = 4 bimestres
+				double[] notas = new double[4]; // 1 semestre = 4 bimestres
 				
 				for (int i = 0; i < notas.length; i++) {
 					notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
 				}
-
-				scanner.nextLine();
 
 				Aluno aluno = new Aluno(nome, notas);
 				
@@ -94,11 +103,14 @@ public class Aluno {
 			StringBuilder ensalamento = new StringBuilder();
 
 		
-			ensalamento.append("==== ALUNOS ====");
+			ensalamento.append("==== ALUNOS ==== \n");
 			
 			for (Aluno aluno : turma) {
 				ensalamento.append(String.format(
-		    			"%s %n",aluno));
+						"%n %-20s | %4.1f | %12s %n",
+						aluno.getNome(),
+						aluno.getMedia(), 
+						aluno.getSituacao()));
 			}
 			
 			return ensalamento.toString();
@@ -136,7 +148,6 @@ public class Aluno {
 	}
 	
 	static Aluno buscarPorNome(ArrayList<Aluno> alunos, String nome) {
-		
 		for (Aluno aluno : alunos) {
 			if (aluno != null &&
 				aluno.getNome().equalsIgnoreCase(nome)) {
@@ -172,4 +183,31 @@ public class Aluno {
 		
 		return ensalamento.toString();
 	}
+
+	static void exibirMetricas(Aluno[] turma) {
+
+        double maior = turma[0].getMedia();
+        double menor = turma[0].getMedia();
+        double soma = 0;
+
+        for (Aluno aluno : turma) {
+
+            soma += aluno.getMedia();
+
+            if (soma > maior) {
+               maior = aluno.getMedia();
+            }
+
+            if (soma < menor) {
+               menor = aluno.getMedia();
+            }
+        }
+
+        double mediaTurma = soma / turma.length;
+
+        System.out.println("METRICAS \n");
+        System.out.printf("Maior nota: %.1f%n", maior);
+        System.out.printf("Menor nota: %.1f%n", menor);
+        System.out.printf("Média da turma: %.1f%n", mediaTurma);
+    }
 }

@@ -25,6 +25,9 @@ public class Main {
 		alunos.add(new Aluno("Carlos", new double[]{8, 9, 0, 9}));
 		*/
 		
+		// Um Array possui um tamanho fixo de elementos/índices.
+		// Já o ArrayList possui tamanho variável(que pode ser estendido) de elementos/índices.
+		
 		int opcao = -1;
 		
 		do {
@@ -33,7 +36,7 @@ public class Main {
 			System.out.println("2 - Listar alunos cadastrados");
 			System.out.println("3 - Buscar por nome");
 			System.out.println("4 - Emitir relatorio");
-			System.out.println("5 - Buscar maior media da turma");
+			System.out.println("5 - Exibir metricas da turma");
 			System.out.println("6 - Exibir ensalamento da turma");
 			System.out.println("0 - Sair do sistema");
 			opcao = scanner.nextInt();
@@ -46,7 +49,7 @@ public class Main {
 				Aluno.cadastrar(scanner, alunos);
 				break;
 			case 2:
-				Aluno.listar(turma);
+				System.out.println(Aluno.listar(turma));
 				break;
 			case 3:
 				System.out.println("Nome ou parte do nome:");
@@ -66,13 +69,13 @@ public class Main {
 			case 4:
 				System.out.println(Aluno.emitirRelatorio(turma));
 				break;
+				
+			case 5:
+				Aluno.exibirMetricas(turma);
+				break;
 			case 6:
 				System.out.println(Aluno.exibirEnsalamento(turma, lugares));
-				
 				break;
-			/* case 5:
-				Aluno.analisarMedias(turma);
-				break; */
 			default:
 				System.out.println("Opcao invalida %n");
 			}
