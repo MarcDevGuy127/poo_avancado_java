@@ -32,6 +32,10 @@ public class Aluno {
 		return soma / notas.length;
 	}
 	
+	public double[] getNotas() {
+		return notas;
+	}
+	
 	@Override
 	public String toString() {
 		return 	"Nome: " + getNome()
@@ -123,6 +127,7 @@ public class Aluno {
 	}
 
 	static void listar(ArrayList<Aluno> alunos) {
+		
 		 if (alunos.isEmpty()) {
 	            System.out.println("Nenhum aluno cadastrado.");
 	            return;
@@ -130,27 +135,32 @@ public class Aluno {
 		
 		System.out.println("==== ALUNOS ====");
 			
-			for (Aluno aluno : alunos) {
-				System.out.printf(
-						"%s %n",
-						aluno);
-			}
+		for (Aluno aluno : alunos) {
+			System.out.printf(
+					"Nome: %-20s | Notas: %s | Média: %4.1f | Situação: %12s %n",
+					aluno.getNome(),
+					Arrays.toString(aluno.getNotas()),
+					aluno.getMedia(), 
+					aluno.getSituacao()
+			);
+		}
 	}
 	
-	static String emitirRelatorio(Aluno[] turma) {
+	static String emitirRelatorio(ArrayList<Aluno> alunos) {
 		StringBuilder relatorio = new StringBuilder();
 		
 		
 		relatorio.append("RELATORIO \n");
 		relatorio.append("-------------- \n");
 		
-		for (Aluno aluno : turma) {
-			relatorio.append(String.format(
-					"%-20s | %4.1f | %12s %n",
+		for (Aluno aluno : alunos) {
+			System.out.printf(
+					"Nome: %-20s | Notas: %s | Média: %4.1f | Situação: %12s %n",
 					aluno.getNome(),
+					Arrays.toString(aluno.getNotas()),
 					aluno.getMedia(), 
 					aluno.getSituacao()
-			));
+			);
 		}
 
 		return relatorio.toString();

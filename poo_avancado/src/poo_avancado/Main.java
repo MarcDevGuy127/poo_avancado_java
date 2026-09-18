@@ -60,7 +60,7 @@ public class Main {
 				Aluno.buscarPorNome(scanner, alunos);
 				break;
 			case 4:
-				Aluno.emitirRelatorio(turma);
+				Aluno.emitirRelatorio(alunos);
 				break;
 			case 5:
 				Aluno.exibirMetricas(turma);
