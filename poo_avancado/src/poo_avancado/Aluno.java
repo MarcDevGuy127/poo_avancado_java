@@ -271,30 +271,44 @@ public class Aluno {
 		return ensalamento.toString();
 	}
 
-	static void exibirMetricas(ArrayList<Aluno> alunos) {
+	static void mostrarEstatisticas(ArrayList<Aluno> alunos) {
 
-        double soma = 0;
+		double soma = 0;
+        double maiorMedia = alunos.get(0).getMedia();
+        double menorMedia = alunos.get(0).getMedia();
 
+        String alunoMaiorMedia = alunos.get(0).getNome();
+        String alunoMenorMedia = alunos.get(0).getNome();
+        
+        if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+            return;
+        }
+        
         for (Aluno aluno : alunos) {
-        	double maior = aluno.getMedia();
-            double menor = aluno.getMedia();
-            soma += aluno.getMedia();
+        	double media = aluno.getMedia();
+            soma += media;
 
-            if (soma > maior) {
-               maior = aluno.getMedia();
+            if (media > maiorMedia) {
+                maiorMedia = media;
+                alunoMaiorMedia = aluno.getNome();
             }
 
-            if (soma < menor) {
-               menor = aluno.getMedia();
+            if (media < menorMedia) {
+                menorMedia = media;
+                alunoMenorMedia = aluno.getNome();
             }
         }
 
-       // double mediaTurma = soma / alunos.length;
+        double mediaTurma = soma / alunos.size();
 
-        System.out.println("METRICAS \n");
-        //System.out.printf("Maior nota: %.1f%n", aluno);
-        //System.out.printf("Menor nota: %.1f%n", menor);
-        //System.out.printf("Média da turma: %.1f%n", mediaTurma);
+        System.out.println("\n===== ESTATÍSTICAS DA TURMA =====");
+        System.out.println("Quantidade de alunos: " + alunos.size());
+        System.out.printf("Média geral da turma: %.1f%n", mediaTurma);
+        System.out.printf("Maior média: %.1f - %s%n",
+                maiorMedia, alunoMaiorMedia);
+        System.out.printf("Menor média: %.1f - %s%n",
+                menorMedia, alunoMenorMedia);
     }
 
 }

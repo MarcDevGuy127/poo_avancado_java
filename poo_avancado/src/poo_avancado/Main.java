@@ -64,7 +64,7 @@ public class Main {
 				Aluno.mostrarNotasOrdenadas(scanner, alunos);
 				break;
 			case 5:
-				Aluno.exibirMetricas(alunos);
+				Aluno.mostrarEstatisticas(alunos);
 				break;
 			//case 7:
 				//Aluno.exibirEnsalamento(turma, lugares);
