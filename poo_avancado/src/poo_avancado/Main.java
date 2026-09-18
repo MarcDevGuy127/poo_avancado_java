@@ -14,7 +14,7 @@ public class Main {
 
 		String[][] lugares = new String[3][1];
 		
-		Aluno[] turma = new Aluno[3];
+		//Aluno[] turma = new Aluno[3];
 		
 		//turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
 		//turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
@@ -40,9 +40,10 @@ public class Main {
 			System.out.println("1 - Cadastrar novo aluno");
 			System.out.println("2 - Listar alunos cadastrados");
 			System.out.println("3 - Buscar por nome");
-			System.out.println("4 - Emitir relatorio");
+			System.out.println("4 - Mostrar notas ordenadas");
 			System.out.println("5 - Exibir metricas da turma");
-			System.out.println("6 - Exibir ensalamento da turma");
+			System.out.println("6 - Filtrar por situação");
+			//System.out.println("7 - Exibir ensalamento da turma");
 			System.out.println("0 - Sair do sistema");
 			opcao = scanner.nextInt();
 			
@@ -60,14 +61,14 @@ public class Main {
 				Aluno.buscarPorNome(scanner, alunos);
 				break;
 			case 4:
-				Aluno.emitirRelatorio(alunos);
+				Aluno.mostrarNotasOrdenadas(scanner, alunos);
 				break;
 			case 5:
-				Aluno.exibirMetricas(turma);
+				Aluno.exibirMetricas(alunos);
 				break;
-			case 6:
-				Aluno.exibirEnsalamento(turma, lugares);
-				break;
+			//case 7:
+				//Aluno.exibirEnsalamento(turma, lugares);
+				//break;
 			default:
 				System.out.println("Opcao invalida %n");
 			}

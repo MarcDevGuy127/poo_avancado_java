@@ -106,7 +106,7 @@ public class Aluno {
 		
 		nome = normalizarNome(nome);
 
-		double[] notas = new double[quantidadeAvaliacoes]; // 1 semestre = 4 bimestres
+		double[] notas = new double[quantidadeAvaliacoes];
 		
 		for (int i = 0; i < notas.length; i++) {
 			notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
@@ -115,23 +115,16 @@ public class Aluno {
 		Aluno aluno = new Aluno(nome, notas);
 		
 		System.out.println();
-		System.out.printf("Aluno: %s %n", aluno);
-		System.out.println("Aluno foi cadastrado! \n");
-		System.out.printf("Nome: %s %n", aluno.getNome());
-		System.out.printf("Media: %.1f %n", aluno.getMedia());
-		System.out.printf("Situacao: %s %n", aluno.getSituacao());
-		System.out.println();
-		System.out.println();
-		
+		System.out.printf("Aluno(a) %s foi cadastrado(a)! %n", aluno.getNome());
 		alunos.add(aluno);
 	}
 
 	static void listar(ArrayList<Aluno> alunos) {
 		
-		 if (alunos.isEmpty()) {
-	            System.out.println("Nenhum aluno cadastrado.");
-	            return;
-	     }
+		if (alunos.isEmpty()) {
+	           System.out.println("Nenhum aluno cadastrado.");
+	           return;
+	    }
 		
 		System.out.println("==== ALUNOS ====");
 			
@@ -146,12 +139,9 @@ public class Aluno {
 		}
 	}
 	
-	static String emitirRelatorio(ArrayList<Aluno> alunos) {
-		StringBuilder relatorio = new StringBuilder();
-		
-		
-		relatorio.append("RELATORIO \n");
-		relatorio.append("-------------- \n");
+	static void emitirRelatorio(ArrayList<Aluno> alunos) {
+		System.out.println("RELATORIO");
+		System.out.println("--------------");
 		
 		for (Aluno aluno : alunos) {
 			System.out.printf(
@@ -163,7 +153,6 @@ public class Aluno {
 			);
 		}
 
-		return relatorio.toString();
 	}
 	
 	static String normalizarNome(String nome) {
@@ -180,12 +169,12 @@ public class Aluno {
 	
 	static void buscarPorNome(Scanner scanner, ArrayList<Aluno> alunos) {
 		
+		System.out.print("Digite o nome ou parte do nome do aluno: ");
+		String busca = scanner.next();
+		
 		if (alunos.isEmpty()) {
             System.out.println("Nenhum aluno cadastrado.");
         }
-
-        System.out.print("Digite o nome ou parte do nome: ");
-        String busca = scanner.nextLine().trim();
 
         if (busca.isEmpty()) {
             System.out.println("Digite um nome para realizar a busca.");
@@ -198,20 +187,64 @@ public class Aluno {
             if (aluno.getNome().toLowerCase().contains(busca.toLowerCase())) {
 
                 System.out.println("\nNome: " + aluno.getNome());
-                System.out.println("Notas: " + Arrays.toString(aluno.notas));
+                System.out.println("Notas: " + Arrays.toString(aluno.getNotas()));
                 System.out.printf("Média: %.1f%n", aluno.getMedia());
                 System.out.println("Situação: " + aluno.getSituacao());
 
                 encontrado = true;
             }
-        }
-
-        if (!encontrado) {
-            System.out.println("Nenhum aluno encontrado.");
+            
+            if (!encontrado) {
+                System.out.println("Nenhum aluno encontrado.");
+            }
         }
         
 	}
 	
+	
+	static void mostrarNotasOrdenadas(Scanner scanner, ArrayList<Aluno> alunos) {
+		
+		System.out.print("Digite o nome ou parte do nome do aluno: ");
+        
+        String busca = scanner.next().trim();
+
+		if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+            return;
+        }
+		
+        if (busca.isEmpty()) {
+            System.out.println("Digite um nome.");
+            return;
+        }
+        
+        
+        String alunoEncontrado = null;
+        
+        for (Aluno aluno : alunos) {
+
+            if (aluno.getNome().equalsIgnoreCase(busca)/*.contains(busca)*/) {
+                alunoEncontrado = aluno.toString();
+                
+                double[] notasOrdenadas = aluno.getNotas().clone();
+                
+                System.out.println("Notas desordenadas: " + Arrays.toString(notasOrdenadas));
+                
+                Arrays.sort(notasOrdenadas);
+                
+                System.out.println("Notas ordenadas: " + Arrays.toString(notasOrdenadas));
+                
+                alunoEncontrado.toString();
+                break;
+            }
+            else if (alunoEncontrado == null) {
+                System.out.println("Aluno não encontrado.");
+                return;
+            }
+
+        }
+        
+	}
 	
 	static String exibirEnsalamento(Aluno[] turma, String[][] lugares) {
 
@@ -238,14 +271,13 @@ public class Aluno {
 		return ensalamento.toString();
 	}
 
-	static void exibirMetricas(Aluno[] turma) {
+	static void exibirMetricas(ArrayList<Aluno> alunos) {
 
-        double maior = turma[0].getMedia();
-        double menor = turma[0].getMedia();
         double soma = 0;
 
-        for (Aluno aluno : turma) {
-
+        for (Aluno aluno : alunos) {
+        	double maior = aluno.getMedia();
+            double menor = aluno.getMedia();
             soma += aluno.getMedia();
 
             if (soma > maior) {
@@ -257,11 +289,12 @@ public class Aluno {
             }
         }
 
-        double mediaTurma = soma / turma.length;
+       // double mediaTurma = soma / alunos.length;
 
         System.out.println("METRICAS \n");
-        System.out.printf("Maior nota: %.1f%n", maior);
-        System.out.printf("Menor nota: %.1f%n", menor);
-        System.out.printf("Média da turma: %.1f%n", mediaTurma);
+        //System.out.printf("Maior nota: %.1f%n", aluno);
+        //System.out.printf("Menor nota: %.1f%n", menor);
+        //System.out.printf("Média da turma: %.1f%n", mediaTurma);
     }
+
 }
