@@ -54,7 +54,7 @@ public class Main {
 				Aluno.cadastrar(scanner, alunos, quantidadeAvaliacoes);
 				break;
 			case 2:
-				Aluno.listar(turma);
+				Aluno.listar(alunos);
 				break;
 			case 3:
 				Aluno.buscarPorNome(scanner, alunos);
@@ -62,7 +62,6 @@ public class Main {
 			case 4:
 				Aluno.emitirRelatorio(turma);
 				break;
-				
 			case 5:
 				Aluno.exibirMetricas(turma);
 				break;

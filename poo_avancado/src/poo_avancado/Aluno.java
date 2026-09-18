@@ -122,21 +122,19 @@ public class Aluno {
 		alunos.add(aluno);
 	}
 
-	static String listar(Aluno[] turma) {
-			StringBuilder ensalamento = new StringBuilder();
-
+	static void listar(ArrayList<Aluno> alunos) {
+		 if (alunos.isEmpty()) {
+	            System.out.println("Nenhum aluno cadastrado.");
+	            return;
+	     }
 		
-			ensalamento.append("==== ALUNOS ==== \n");
+		System.out.println("==== ALUNOS ====");
 			
-			for (Aluno aluno : turma) {
-				ensalamento.append(String.format(
-						"%n %-20s | %4.1f | %12s %n",
-						aluno.getNome(),
-						aluno.getMedia(), 
-						aluno.getSituacao()));
+			for (Aluno aluno : alunos) {
+				System.out.printf(
+						"%s %n",
+						aluno);
 			}
-			
-			return ensalamento.toString();
 	}
 	
 	static String emitirRelatorio(Aluno[] turma) {
