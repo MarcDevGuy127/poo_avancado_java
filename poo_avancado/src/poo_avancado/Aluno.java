@@ -46,6 +46,27 @@ public class Aluno {
 		return "Reprovado";
 	}
 	
+	static int lerQuantidadeAvaliacoes(int quantidadeAvaliacoes, Scanner scanner) {
+
+		while (true) {
+
+            if (scanner.hasNextInt()) {
+            	quantidadeAvaliacoes = scanner.nextInt();
+                scanner.nextLine();  
+                
+                if (quantidadeAvaliacoes > 0) {
+                	System.out.printf("Quantidade definida: %d %n", quantidadeAvaliacoes);
+                    break;
+                } else {
+                    System.out.println("Número inteiro inválido! O número deve ser maior que zero.");
+                	System.out.println("Digite a quantidade novamente:");
+                } 
+            }
+        }
+		
+		return quantidadeAvaliacoes;
+	}
+	
 	static double lerNotas(String string, Scanner scanner) {
 		while (true) {
 
@@ -70,33 +91,35 @@ public class Aluno {
         }
 	}
 
-	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos) {
-				System.out.println();
-				System.out.println("SISTEMA DE CADASTRO");
+	static void cadastrar(Scanner scanner, ArrayList<Aluno> alunos, int quantidadeAvaliacoes) {
+        
+		System.out.println();
+		System.out.println("SISTEMA DE CADASTRO");
 
-				scanner.nextLine();
-				System.out.println("Nome: ");
-				String nome = scanner.nextLine();
-				
-				nome = normalizarNome(nome);
+		scanner.nextLine();
+		System.out.println("Nome: ");
+		String nome = scanner.nextLine();
+		
+		nome = normalizarNome(nome);
 
-				double[] notas = new double[4]; // 1 semestre = 4 bimestres
-				
-				for (int i = 0; i < notas.length; i++) {
-					notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
-				}
+		double[] notas = new double[quantidadeAvaliacoes]; // 1 semestre = 4 bimestres
+		
+		for (int i = 0; i < notas.length; i++) {
+			notas[i] = lerNotas("Nota " + (i + 1) + ": ", scanner);
+		}
 
-				Aluno aluno = new Aluno(nome, notas);
-				
-				System.out.println();
-				System.out.println("Aluno foi cadastrado! \n");
-				System.out.printf("Nome: %s %n", aluno.getNome());
-				System.out.printf("Media: %.1f %n", aluno.getMedia());
-				System.out.printf("Situacao: %s %n", aluno.getSituacao());
-				System.out.println();
-				System.out.println();
-				
-				alunos.add(aluno);
+		Aluno aluno = new Aluno(nome, notas);
+		
+		System.out.println();
+		System.out.printf("Aluno: %s %n", aluno);
+		System.out.println("Aluno foi cadastrado! \n");
+		System.out.printf("Nome: %s %n", aluno.getNome());
+		System.out.printf("Media: %.1f %n", aluno.getMedia());
+		System.out.printf("Situacao: %s %n", aluno.getSituacao());
+		System.out.println();
+		System.out.println();
+		
+		alunos.add(aluno);
 	}
 
 	static String listar(Aluno[] turma) {
@@ -147,15 +170,38 @@ public class Aluno {
 				+ nome.substring(1);
 	}
 	
-	static Aluno buscarPorNome(ArrayList<Aluno> alunos, String nome) {
-		for (Aluno aluno : alunos) {
-			if (aluno != null &&
-				aluno.getNome().equalsIgnoreCase(nome)) {
-				return aluno;
-			}
-		}
+	static void buscarPorNome(Scanner scanner, ArrayList<Aluno> alunos) {
 		
-		return null;
+		if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno cadastrado.");
+        }
+
+        System.out.print("Digite o nome ou parte do nome: ");
+        String busca = scanner.nextLine().trim();
+
+        if (busca.isEmpty()) {
+            System.out.println("Digite um nome para realizar a busca.");
+        }
+
+        boolean encontrado = false;
+
+        for (Aluno aluno : alunos) {
+
+            if (aluno.getNome().toLowerCase().contains(busca.toLowerCase())) {
+
+                System.out.println("\nNome: " + aluno.getNome());
+                System.out.println("Notas: " + Arrays.toString(aluno.notas));
+                System.out.printf("Média: %.1f%n", aluno.getMedia());
+                System.out.println("Situação: " + aluno.getSituacao());
+
+                encontrado = true;
+            }
+        }
+
+        if (!encontrado) {
+            System.out.println("Nenhum aluno encontrado.");
+        }
+        
 	}
 	
 	

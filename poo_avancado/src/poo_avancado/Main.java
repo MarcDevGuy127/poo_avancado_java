@@ -1,13 +1,14 @@
 package poo_avancado;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		Scanner scanner = new Scanner(System.in);
+		Scanner scanner = new Scanner(System.in).useLocale(Locale.US);
 		
 		ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 
@@ -15,9 +16,9 @@ public class Main {
 		
 		Aluno[] turma = new Aluno[3];
 		
-		turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
-		turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
-		turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
+		//turma[0] = new Aluno("João", new double[]{8.0, 7.5, 9.0});
+		//turma[1] = new Aluno("Maria", new double[]{7.0, 8.5, 9.0});
+		//turma[2] = new Aluno("Pedro", new double[]{6.5, 7.0, 8.0});
 		
 		/*
 		alunos.add(new Aluno("João", new double[]{8.0, 7.5, 9.0, 7.0}));
@@ -29,6 +30,10 @@ public class Main {
 		// Já o ArrayList possui tamanho variável(que pode ser estendido) de elementos/índices.
 		
 		int opcao = -1;
+		int quantidadeAvaliacoes = 0;
+		
+		System.out.println("Digite a quantidade de avaliacoes");
+		quantidadeAvaliacoes = Aluno.lerQuantidadeAvaliacoes(quantidadeAvaliacoes, scanner);
 		
 		do {
 			System.out.println("SISTEMA DE CADASTRO");
@@ -46,35 +51,23 @@ public class Main {
 				System.out.println("Encerrando programa...");
 				break;
 			case 1:
-				Aluno.cadastrar(scanner, alunos);
+				Aluno.cadastrar(scanner, alunos, quantidadeAvaliacoes);
 				break;
 			case 2:
-				System.out.println(Aluno.listar(turma));
+				Aluno.listar(turma);
 				break;
 			case 3:
-				System.out.println("Nome ou parte do nome:");
-				String busca = scanner.next();
-				
-				Aluno encontrado = Aluno.buscarPorNome(alunos, busca);
-				
-				if (encontrado == null) {
-					System.out.println("Aluno nao encontrado");	
-				} else {
-					System.out.printf("%n %s | %.1f | %s",
-							encontrado.getNome(),
-							encontrado.getMedia(),
-							encontrado.getSituacao());			
-				}
+				Aluno.buscarPorNome(scanner, alunos);
 				break;
 			case 4:
-				System.out.println(Aluno.emitirRelatorio(turma));
+				Aluno.emitirRelatorio(turma);
 				break;
 				
 			case 5:
 				Aluno.exibirMetricas(turma);
 				break;
 			case 6:
-				System.out.println(Aluno.exibirEnsalamento(turma, lugares));
+				Aluno.exibirEnsalamento(turma, lugares);
 				break;
 			default:
 				System.out.println("Opcao invalida %n");
